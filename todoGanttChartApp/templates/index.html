@@ -1,10 +1,186 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <meta charset="utf-8">
-    <title>Hello World</title>
+    <meta charset="utf-8" />
+    <title>sample</title>
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+    <script src="https://unpkg.com/vue@next"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
   </head>
   <body>
-    <h1>Hello World</h1>
+    <div id="app_hello">{{ message }}</div>
+
+    <div id="app">
+      <div id="gantt-header" class="h-12 p-2 flex items-center">
+        <h1 class="text-xl font-bold">ガントチャート</h1>
+      </div>
+      
+      <div id="gantt-content" class="flex">
+        <div id="gantt-task">
+          <div id="gantt-task-title" class="flex items-center bg-green-600 text-white h-20" ref="task">
+            <div class="border-t border-r border-b flex items-center justify-center font-bold text-xs w-48 h-full">
+              したいこと
+            </div>
+            <div class="border-t border-r border-b flex items-center justify-center font-bold text-xs w-12 h-full">
+              優先度
+            </div>
+            <div class="border-t border-r border-b flex items-center justify-center font-bold text-xs w-24 h-full">
+              予定開始日
+            </div>
+            <div class="border-t border-r border-b flex items-center justify-center font-bold text-xs w-24 h-full">
+              予定終了日
+            </div>
+            <div class="border-t border-r border-b flex items-center justify-center font-bold text-xs w-24 h-full">
+              実開始日
+            </div>
+            <div class="border-t border-r border-b flex items-center justify-center font-bold text-xs w-24 h-full">
+              実終了日
+            </div>
+            <div class="border-t border-r border-b flex items-center justify-center font-bold text-xs w-12 h-full">
+              進捗
+            </div>
+          </div>
+          <div id="gantt-task-list">
+            <div v-for="(list,index) in lists" :key="index" class="flex h-10 border-b">
+              <template v-if="list.cat === 'category'">
+                <div class="flex items-center font-bold w-full text-sm pl-2">
+                  {{list.name}}
+                </div>
+              </template>
+              <template v-else>
+                <div class="border-r flex items-center font-bold w-48 text-sm pl-4">
+                  {{list.want_to_do_name}}
+                </div>
+                <div class="border-r flex items-center justify-center w-12 text-sm">
+                  {{list.priority}}
+                </div>
+                <div class="border-r flex items-center justify-center w-24 text-sm">
+                  {{list.planned_start_date}}
+                </div>
+                <div class="border-r flex items-center justify-center w-24 text-sm">
+                  {{list.planned_end_date}}
+                </div>
+                <div class="border-r flex items-center justify-center w-24 text-sm">
+                  {{list.achv_start_date}}
+                </div>
+                <div class="border-r flex items-center justify-center w-24 text-sm">
+                  {{list.achv_end_date}}
+                </div>
+                <div class="flex items-center justify-center w-12 text-sm">
+                  {{list.progress}}%
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const app_hello = Vue.createApp({
+        data() {
+          return {
+            message: 'hello'
+          }
+        }
+      });
+      app_hello.mount("#app_hello");
+      
+      const app = Vue.createApp({
+          data(){
+            return {
+              //略
+              categories: [
+                {
+                  id: 1,
+                  name: '趣味',
+                  collapsed: false,
+                }, {
+                  id: 2,
+                  name: '娯楽',
+                  collapsed: false,
+                }
+                , {
+                  id: 3,
+                  name: '旅行',
+                  collapsed: false,
+                }
+              ],
+              tasks: [
+              {
+                  id: 1,
+                  category_id: 1,
+                  want_to_do_name: 'ボイトレ',
+                  priority: '高',
+                  planned_start_date: '2023-01-01',
+                  planned_end_date: '2024-01-01',
+                  achv_start_date: '',
+                  achv_end_date: '',
+                  progress: 0,
+                },
+                {
+                  id: 1,
+                  category_id: 2,
+                  want_to_do_name: '大の字になれる風呂を家に作る',
+                  priority: '中',
+                  planned_start_date: '2023-01-01',
+                  planned_end_date: '2028-01-01',
+                  achv_start_date: '',
+                  achv_end_date: '',
+                  progress: 0,
+                },
+                {
+                  id: 1,
+                  category_id: 2,
+                  want_to_do_name: '会員制の回らない寿司に行く',
+                  priority: '高',
+                  planned_start_date: '2023-01-01',
+                  planned_end_date: '2025-01-01',
+                  achv_start_date: '',
+                  achv_end_date: '',
+                  progress: 0,
+                },
+                {
+                  id: 2,
+                  category_id: 3,
+                  want_to_do_name: '47都道府県制覇',
+                  priority: '中',
+                  planned_start_date: '2023-01-01',
+                  planned_end_date: '2098-01-01',
+                  achv_start_date: '',
+                  achv_end_date: '',
+                  progress: 0,
+                },
+                {
+                  id: 3,
+                  category_id: 3,
+                  want_to_do_name: '先進国旅行（できれば全世界）',
+                  priority: '中',
+                  planned_start_date: '2023-01-01',
+                  planned_end_date: '2098-01-01',
+                  achv_start_date: '',
+                  achv_end_date: '',
+                  progress: 0,
+                },
+              ],
+            }
+          },
+          computed:{
+            lists() { 
+              let lists = [];
+              this.categories.map(category => {
+                lists.push({ cat: 'category', ...category });
+                this.tasks.map(task => {
+                  if (task.category_id === category.id) {
+                    lists.push({ cat: 'task', ...task })
+                  }
+                })
+              })
+              return lists;
+            }
+          }
+        });
+        app.mount('#app');
+    </script>    
   </body>
 </html>
+  
