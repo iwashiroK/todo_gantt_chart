@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>sample</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app">
+      <div id="gantt-header" class="h-12 p-2 flex items-center">
+        <h1 class="text-xl font-bold">カテゴリ登録</h1>
+      </div>
+      <div>
+        <label>登録カテゴリ：</label><input type="text" style="border:solid #333 1px" name="in01" size="15" maxlength="20">
+        <div>
+            <button style="border:solid #333 1px">登録</button>
+            <button onclick="location.href='index.html'" style="border:solid #333 1px">戻る</button>
+        </div>
+      </div>
+      
+      <div id="gantt-content" class="flex">
+        <div id="gantt-task">
+          <div id="gantt-task-title" class="flex items-center bg-green-600 text-white h-20" ref="task">
+            <div class="border-t border-r border-b flex items-center justify-center font-bold text-xs w-40 h-full">
+              カテゴリ一覧
+            </div>
+          </div>
+          <div id="gantt-task-list">
+            <div v-for="(list,index) in this.categories" :key="index" class="flex h-10 border-b">
+                <div class="border-r flex items-center font-bold w-40 text-sm pl-4">
+                    {{list.name}}
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    <script>
+            
+      const app = Vue.createApp({
+          data(){
+            return {
+              //略
+              categories: [
+                {
+                  id: 1,
+                  name: '趣味',
+                  collapsed: false,
+                }, {
+                  id: 2,
+                  name: '娯楽',
+                  collapsed: false,
+                }
+                , {
+                  id: 3,
+                  name: '旅行',
+                  collapsed: false,
+                }
+              ],
+            }
+          },
+        });
+        app.mount('#app');
+    </script>    
+  </body>
+</html>
+  
