@@ -12,11 +12,12 @@
         <h1 class="text-xl font-bold">カテゴリ登録</h1>
       </div>
       <div>
-        <label>登録カテゴリ：</label><input type="text" style="border:solid #333 1px" name="in01" size="15" maxlength="20">
-        <div>
-          <button style="border:solid #333 1px">登録</button>
-          <button onclick="location.href='./../'" style="border:solid #333 1px">戻る</button>
-        </div>
+        <form action='{% url "addCategory" %}' method='post' enctype='multipart/form-data'>
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" name="submit" style="border:solid #333 1px">カテゴリ登録</button>
+        </form>
+        <button onclick="location.href='./../'" style="border:solid #333 1px">戻る</button>
       </div>
       
       <div id="gantt-content" class="flex">
